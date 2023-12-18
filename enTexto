@@ -1,0 +1,290 @@
+
+package tareas;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TaskAssistantApp {
+    private static final String USERS_FILE = "users.txt";
+    private static final String TASKS_FILE = "tasks.txt";
+
+    private JFrame frame;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JButton loginButton;
+    private JButton registerButton;
+    private List<Task> tasks;
+
+    public TaskAssistantApp() {
+        frame = new JFrame("Inicio de Sesión");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        placeComponents(panel);
+
+        tasks = new ArrayList<>();
+
+        frame.setVisible(true);
+    }
+
+    private void placeComponents(JPanel panel) {
+        panel.setLayout(null);
+
+        JLabel userLabel = new JLabel("Usuario:");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+
+        usernameField = new JTextField(20);
+        usernameField.setBounds(100, 20, 165, 25);
+        panel.add(usernameField);
+
+        JLabel passwordLabel = new JLabel("Contraseña:");
+        passwordLabel.setBounds(10, 50, 80, 25);
+        panel.add(passwordLabel);
+
+        passwordField = new JPasswordField(20);
+        passwordField.setBounds(100, 50, 165, 25);
+        panel.add(passwordField);
+
+        loginButton = new JButton("Iniciar Sesión");
+        loginButton.setBounds(10, 80, 150, 25);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loginUser();
+            }
+        });
+        panel.add(loginButton);
+
+        registerButton = new JButton("Registrarse");
+        registerButton.setBounds(180, 80, 150, 25);
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openRegistrationWindow();
+            }
+        });
+        panel.add(registerButton);
+    }
+
+ private void loginUser() {
+    String username = usernameField.getText();
+    char[] password = passwordField.getPassword();
+
+    // Verificar el usuario y la contraseña, por ejemplo, leyendo de USERS_FILE
+    if (isValidUser(username, password)) {
+        JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso");
+
+        // Deshabilitar campos de inicio de sesión y registro
+        usernameField.setEnabled(false);
+        passwordField.setEnabled(false);
+        loginButton.setEnabled(false);
+        registerButton.setEnabled(false);
+
+        // Abrir la ventana de tareas
+        openTaskWindow();
+    } else {
+        // Mostrar un mensaje de error específico
+        JOptionPane.showMessageDialog(frame, "Error: Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+    private boolean isValidUser(String username, char[] password) {
+        // Aquí deberías implementar la lógica para verificar el usuario y la contraseña,
+        // por ejemplo, leyendo de USERS_FILE
+        // En este ejemplo, siempre se considera válido
+        return true;
+    }
+
+    private void openRegistrationWindow() {
+        // Abrir la ventana de registro
+        new RegistrationWindow();
+    }
+
+    private void openTaskWindow() {
+        // Abrir la ventana de tareas
+        new TaskWindow();
+    }
+
+    public static void main(String[] args) {
+        new TaskAssistantApp();
+    }
+
+    private static class Task {
+        private String task;
+        private String date;
+        private String time;
+
+        public Task(String task, String date, String time) {
+            this.task = task;
+            this.date = date;
+            this.time = time;
+        }
+
+        // Puedes agregar getters y setters según sea necesario
+    }
+
+    private class RegistrationWindow {
+        private JFrame registrationFrame;
+        private JTextField registerUsernameField;
+        private JPasswordField registerPasswordField;
+        private JTextField registerEmailField;
+        private JButton registerUserButton;
+
+        public RegistrationWindow() {
+            registrationFrame = new JFrame("Registro de Usuario");
+            registrationFrame.setSize(400, 200);
+
+            JPanel panel = new JPanel();
+            registrationFrame.add(panel);
+            placeRegistrationComponents(panel);
+
+            registrationFrame.setVisible(true);
+        }
+
+        private void placeRegistrationComponents(JPanel panel) {
+            panel.setLayout(null);
+
+            JLabel userLabel = new JLabel("Usuario:");
+            userLabel.setBounds(10, 20, 80, 25);
+            panel.add(userLabel);
+
+            registerUsernameField = new JTextField(20);
+            registerUsernameField.setBounds(100, 20, 165, 25);
+            panel.add(registerUsernameField);
+
+            JLabel passwordLabel = new JLabel("Contraseña:");
+            passwordLabel.setBounds(10, 50, 80, 25);
+            panel.add(passwordLabel);
+
+            registerPasswordField = new JPasswordField(20);
+            registerPasswordField.setBounds(100, 50, 165, 25);
+            panel.add(registerPasswordField);
+
+            JLabel emailLabel = new JLabel("Correo Electrónico:");
+            emailLabel.setBounds(10, 80, 120, 25);
+            panel.add(emailLabel);
+
+            registerEmailField = new JTextField(20);
+            registerEmailField.setBounds(140, 80, 165, 25);
+            panel.add(registerEmailField);
+            registerUserButton = new JButton("Registrar Usuario");
+            registerUserButton.setBounds(10, 110, 150, 25);
+            registerUserButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    registerNewUser();
+                }
+            });
+            panel.add(registerUserButton);
+        }
+
+        private void registerNewUser() {
+            String username = registerUsernameField.getText();
+            char[] password = registerPasswordField.getPassword();
+            String email = registerEmailField.getText();
+
+            // Verificar si el correo electrónico es válido
+            if (isValidEmail(email)) {
+                // Aquí deberías agregar la lógica para guardar el nuevo usuario en USERS_FILE
+                saveUserToFile(username, email, password);
+
+                JOptionPane.showMessageDialog(registrationFrame, "Usuario registrado exitosamente");
+
+                // Cerrar la ventana de registro
+                registrationFrame.dispose();
+            } else {
+                JOptionPane.showMessageDialog(registrationFrame, "Error: Ingrese correctamente su correo electrónico");
+            }
+        }
+
+        private boolean isValidEmail(String email) {
+            // Aquí puedes implementar una lógica más avanzada para verificar si el correo electrónico es válido
+            // Este ejemplo solo verifica si contiene un "@" y un "."
+            return email.contains("@") && email.contains(".");
+        }
+
+        private void saveUserToFile(String username, String email, char[] password) {
+            // Aquí deberías agregar la lógica para guardar el nuevo usuario en USERS_FILE
+            try (PrintWriter writer = new PrintWriter(new FileWriter(USERS_FILE, true))) {
+                writer.println("Usuario: " + username + ", Correo Electrónico: " + email + ", Contraseña: " + String.valueOf(password));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class TaskWindow {
+        private JFrame taskFrame;
+        private JTextField taskField;
+        private JTextField dateField;
+        private JTextField timeField;
+        private JButton addTaskButton;
+
+        public TaskWindow() {
+            taskFrame = new JFrame("Ventana de Tareas");
+            taskFrame.setSize(400, 300);
+
+            JPanel panel = new JPanel();
+            taskFrame.add(panel);
+            placeTaskComponents(panel);
+
+            taskFrame.setVisible(true);
+        }
+
+        private void placeTaskComponents(JPanel panel) {
+            panel.setLayout(null);
+
+            JLabel taskLabel = new JLabel("Actividad:");
+            taskLabel.setBounds(10, 20, 80, 25);
+            panel.add(taskLabel);
+
+            taskField = new JTextField(20);
+            taskField.setBounds(100, 20, 165, 25);
+            panel.add(taskField);
+
+            JLabel dateLabel = new JLabel("Fecha:");
+            dateLabel.setBounds(10, 50, 80, 25);
+            panel.add(dateLabel);
+
+            dateField = new JTextField(20);
+            dateField.setBounds(100, 50, 165, 25);
+            panel.add(dateField);
+
+            JLabel timeLabel = new JLabel("Hora:");
+            timeLabel.setBounds(10, 80, 80, 25);
+            panel.add(timeLabel);
+
+            timeField = new JTextField(20);
+            timeField.setBounds(100, 80, 165, 25);
+            panel.add(timeField);
+
+            addTaskButton = new JButton("Agregar Actividad");
+            addTaskButton.setBounds(10, 110, 150, 25);
+            addTaskButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    addTask();
+                }
+            });
+            panel.add(addTaskButton);
+        }
+
+        private void addTask() {
+            String task = taskField.getText();
+            String date = dateField.getText();
+            String time = timeField.getText();
+
+            tasks.add(new Task(task, date, time));
+            }
+        }
+    }
+
