@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Modelo.Cifrar_passwd;
@@ -6,17 +5,12 @@ import Modelo.SQLusuario;
 import Modelo.Usuario;
 import javax.swing.JOptionPane;
 
-
 public class vista_registrar extends javax.swing.JFrame {
 
- 
     public vista_registrar() {
         initComponents();
     }
 
-    
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,39 +120,42 @@ public class vista_registrar extends javax.swing.JFrame {
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         Usuario usuario = new Usuario();
         SQLusuario sqlUsuario = new SQLusuario();
-        
-        
-        
+
         String passwd = new String(ent_passwd.getPassword());
-        String passwdConf = new String(ent_passwd.getPassword());
+        String passwdConf = new String(ent_passwdConf.getPassword());
         //validaciones
-        if(ent_usuario.getText().equals("") || passwd.equals("")||passwdConf.equals("")||ent_nick.getText().equals("")||ent_correo.getText().equals("")){
+        
+        //VALIDACIOON DE CAMPOS
+        if (ent_usuario.getText().equals("") || passwd.equals("") || passwdConf.equals("") || ent_nick.getText().equals("") || ent_correo.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Algunos campos estan vacios, revisalos");
-        }
-        else{
+        } else {
+            //VALIDACIOON CONTRASE;AS IGUALES
             if (passwd.equals(passwdConf)) {
-                String nuevaPasswd = Cifrar_passwd.md5(passwd);
-                
-                usuario.setNombreUsuario(ent_usuario.getText());
-                usuario.setPasswd(passwd);
-                usuario.setNick(ent_nick.getText());
-                usuario.setCorreo(ent_correo.getText());
-                usuario.setIdTipo_usuario(1);
-                
-                
-                if (sqlUsuario.registrar(usuario)) {
-                    JOptionPane.showMessageDialog(null, "Todo bien :)");
+
+                if (sqlUsuario.verificarUsuario(ent_usuario.getText()) == 0) {
+                    String nuevaPasswd = Cifrar_passwd.md5(passwd);
+
+                    usuario.setNombreUsuario(ent_usuario.getText());
+                    usuario.setPasswd(passwd);
+                    usuario.setNick(ent_nick.getText());
+                    usuario.setCorreo(ent_correo.getText());
+                    usuario.setIdTipo_usuario(1);
+
+                    if (sqlUsuario.registrar(usuario)) {
+                        JOptionPane.showMessageDialog(null, "Registrado");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error en el registro");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ya existe el usuario");
                 }
-                else{
-                    JOptionPane.showMessageDialog(null, "Todo mal :(");
-                }
-            }
-            else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Contraseñas diferentes");
             }
         }
-        
-        
+
+
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     /**
