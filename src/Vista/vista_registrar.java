@@ -124,33 +124,47 @@ public class vista_registrar extends javax.swing.JFrame {
         String passwd = new String(ent_passwd.getPassword());
         String passwdConf = new String(ent_passwdConf.getPassword());
         //validaciones
-        
+
         //VALIDACIOON DE CAMPOS
-        if (ent_usuario.getText().equals("") || passwd.equals("") || passwdConf.equals("") || ent_nick.getText().equals("") || ent_correo.getText().equals("")) {
+        if (ent_usuario.getText().equals("") || passwd.equals("") || passwdConf.equals("") || ent_nick.getText().equals("") || ent_correo.getText().equals("")) 
+        {
             JOptionPane.showMessageDialog(null, "Algunos campos estan vacios, revisalos");
-        } else {
+        } else 
+        {
             //VALIDACIOON CONTRASE;AS IGUALES
-            if (passwd.equals(passwdConf)) {
+            if (passwd.equals(passwdConf)) 
+            {
+                if (sqlUsuario.verificarUsuario(ent_usuario.getText()) == 0) 
+                {
 
-                if (sqlUsuario.verificarUsuario(ent_usuario.getText()) == 0) {
-                    String nuevaPasswd = Cifrar_passwd.md5(passwd);
+                    if (sqlUsuario.comprobarEmail(ent_correo.getText())) 
+                    {
 
-                    usuario.setNombreUsuario(ent_usuario.getText());
-                    usuario.setPasswd(passwd);
-                    usuario.setNick(ent_nick.getText());
-                    usuario.setCorreo(ent_correo.getText());
-                    usuario.setIdTipo_usuario(1);
+                        String nuevaPasswd = Cifrar_passwd.md5(passwd);
 
-                    if (sqlUsuario.registrar(usuario)) {
-                        JOptionPane.showMessageDialog(null, "Registrado");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error en el registro");
+                        usuario.setNombreUsuario(ent_usuario.getText());
+                        usuario.setPasswd(passwd);
+                        usuario.setNick(ent_nick.getText());
+                        usuario.setCorreo(ent_correo.getText());
+                        usuario.setIdTipo_usuario(1);
+
+                        if (sqlUsuario.registrar(usuario)) {
+                            JOptionPane.showMessageDialog(null, "Registrado");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error en el registro");
+                        }
                     }
-                }else{
+                    else
+                    {
+                        System.out.println("El correo no es correcto");
+                    }
+                } else 
+                {
                     JOptionPane.showMessageDialog(null, "Ya existe el usuario");
                 }
-
-            } else {
+                
+            } else 
+            {
                 JOptionPane.showMessageDialog(null, "Contraseñas diferentes");
             }
         }
@@ -158,11 +172,8 @@ public class vista_registrar extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_registrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -186,7 +197,7 @@ public class vista_registrar extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new vista_registrar().setVisible(true);
