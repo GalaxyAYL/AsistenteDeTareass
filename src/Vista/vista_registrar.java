@@ -1,6 +1,6 @@
 package Vista;
 
-import Modelo.Cifrar_passwd;
+import Modelo.CifrarPasswd;
 import Modelo.SQLusuario;
 import Modelo.Usuario;
 import javax.swing.JOptionPane;
@@ -140,10 +140,10 @@ public class vista_registrar extends javax.swing.JFrame {
                     if (sqlUsuario.comprobarEmail(ent_correo.getText())) 
                     {
 
-                        String nuevaPasswd = Cifrar_passwd.md5(passwd);
+                        String nuevaPasswd = CifrarPasswd.sha256(passwd);
 
                         usuario.setNombreUsuario(ent_usuario.getText());
-                        usuario.setPasswd(passwd);
+                        usuario.setPasswd(nuevaPasswd);
                         usuario.setNick(ent_nick.getText());
                         usuario.setCorreo(ent_correo.getText());
                         usuario.setIdTipo_usuario(1);

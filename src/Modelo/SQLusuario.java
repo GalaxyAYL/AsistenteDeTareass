@@ -5,6 +5,7 @@ import com.mysql.cj.jdbc.ConnectionImpl;
 import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 public class SQLusuario {
 
@@ -78,25 +79,24 @@ public class SQLusuario {
 
     public boolean iniciarSesion(Usuario usuario) {
         Conexion con = new Conexion();
-
         PreparedStatement ps;
         ResultSet rs;
-
         try {
 
             //Metodo de conexion a la BS
             ConnectionImpl conexion = con.getConnection();
             //Prepared estatement para la conexion con DB
-            ps = conexion.prepareStatement("select id, nombreUsuario, passwd, nombre, idTipo_usuario from usuarios where nombreUsuario=?");
+            ps = conexion.prepareStatement("SELECT id, nombreUsuario, passwd, nombre, idTipo_usuarios from usuarios where nombreUsuario=?");
 
             ps.setString(1, usuario.getNombreUsuario());
 
             rs = ps.executeQuery();
+            JOptionPane.showMessageDialog(null, "Se encontro usuario --1");
             if (rs.next()) {
                 if(usuario.getPasswd().equals(rs.getString("passwd"))){
                     usuario.setId(rs.getInt("id"));
                     usuario.setNombreUsuario(rs.getString("nombreUsuario"));
-                    usuario.setIdTipo_usuario(rs.getInt("idTipo_usuario"));
+                    usuario.setIdTipo_usuario(rs.getInt("idTipo_usuarios"));
                     return true;
                 }
                 else
@@ -105,7 +105,6 @@ public class SQLusuario {
                 }
             }
             else{
-                System.err.println("Uusario no encontrado");
                 return false;
             }
         } catch (Exception e) 
