@@ -1,6 +1,7 @@
 
 package Modelo;
 
+import java.sql.Date;
 
 public class Usuario {
     private int id;
@@ -65,6 +66,7 @@ public class Usuario {
     public void setUltimaSesion(String ultimaSesion) {
         this.ultimaSesion = ultimaSesion;
     }
+
 
     public int getIdTipo_usuario() {
         return idTipo_usuario;

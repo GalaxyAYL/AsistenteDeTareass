@@ -19,7 +19,7 @@ public class SQLusuario {
             //Metodo de conexion a la BS
             ConnectionImpl conexion = con.getConnection();
             //Prepared estatement para la conexion con DB
-            ps = conexion.prepareStatement("insert into usuarios (nombreUsuario,passwd,nombre,correo,idTipo_usuarios) values (?,?,?,?,?)");
+            ps = conexion.prepareStatement("insert into usuarios (nombreUsuario,passwd,nombre,correo ,idTipo_usuarios) values (?,?,?,?,?)");
 
             ps.setString(1, usuario.getNombreUsuario());
             ps.setString(2, usuario.getPasswd());
@@ -86,7 +86,7 @@ public class SQLusuario {
             //Metodo de conexion a la BS
             ConnectionImpl conexion = con.getConnection();
             //Prepared estatement para la conexion con DB
-            ps = conexion.prepareStatement("SELECT id, nombreUsuario, passwd, nombre, idTipo_usuarios from usuarios where nombreUsuario=?");
+            ps = conexion.prepareStatement("SELECT id, nombreUsuario, passwd, nombre,ultima_sesion, idTipo_usuarios from usuarios where nombreUsuario=?");
 
             ps.setString(1, usuario.getNombreUsuario());
 
