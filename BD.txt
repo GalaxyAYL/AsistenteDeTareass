@@ -1,0 +1,32 @@
+CREATE TABLE `db_asistente`.`usuarios` (
+  `idusuarios` INT NOT NULL,
+  `nombreUsuario` VARCHAR(45) NOT NULL,
+  `passwd` LONGTEXT NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `correo` VARCHAR(45) NOT NULL,
+  `idTipo_usuarios` TINYINT(2) NOT NULL DEFAULT 1,
+  `ultima_sesion` VARCHAR(45) NULL,
+  PRIMARY KEY (`idusuarios`));
+
+
+ALTER TABLE `db_asistente`.`usuarios` 
+CHANGE COLUMN `idusuarios` `idusuarios` INT NOT NULL AUTO_INCREMENT ;
+
+
+CREATE TABLE `db_asistente`.`tareas` (
+  `id_tareas` INT NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(45) NOT NULL,
+  `fecha_creacion` DATETIME NOT NULL,
+  `fecha_limite` DATETIME NOT NULL,
+  `descripcion` LONGTEXT NULL,
+  `importancia` VARCHAR(45) NULL DEFAULT 'normal',
+  `estado` VARCHAR(45) NULL DEFAULT 'pendiente',
+  `id_usuarioJefe` INT NOT NULL,
+  PRIMARY KEY (`id_tareas`),
+  UNIQUE INDEX `id_tareas_UNIQUE` (`id_tareas` ASC) VISIBLE,
+  INDEX `id_usuarioJefe_idx` (`id_usuarioJefe` ASC) VISIBLE,
+  CONSTRAINT `id_usuarioJefe`
+    FOREIGN KEY (`id_usuarioJefe`)
+    REFERENCES `db_asistente`.`usuarios` (`idusuarios`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

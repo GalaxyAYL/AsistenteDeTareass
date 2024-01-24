@@ -61,15 +61,27 @@ public class Vista_principal extends javax.swing.JFrame {
 
         tabla_contenido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Titulo", "Fecha Creacion", "Fecha Limite", "Descripcion", "Importancia", "Estado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tabla_contenido);
 
         javax.swing.GroupLayout panel_ContenidoLayout = new javax.swing.GroupLayout(panel_Contenido);
@@ -79,7 +91,7 @@ public class Vista_principal extends javax.swing.JFrame {
             .addGroup(panel_ContenidoLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-                .addGap(407, 407, 407))
+                .addGap(61, 61, 61))
         );
         panel_ContenidoLayout.setVerticalGroup(
             panel_ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,6 +104,11 @@ public class Vista_principal extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btn_mostrrarTodasLasTareas.setText("MOSTRAR TODO");
+        btn_mostrrarTodasLasTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mostrrarTodasLasTareasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("FILTRAR POR");
 
@@ -239,7 +256,7 @@ public class Vista_principal extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addComponent(panel_Contenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -271,6 +288,10 @@ public class Vista_principal extends javax.swing.JFrame {
         Controlador.Cont_inicioSesion.panelPrincipal =null;
 
     }//GEN-LAST:event_formWindowClosing
+
+    private void btn_mostrrarTodasLasTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrrarTodasLasTareasActionPerformed
+        
+    }//GEN-LAST:event_btn_mostrrarTodasLasTareasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

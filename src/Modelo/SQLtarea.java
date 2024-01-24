@@ -60,5 +60,38 @@ public class SQLtarea {
         return true;
     }
     
+        public ResultSet llenarTabla(){
+         Conexion con = new Conexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        
+        try {
+            ConnectionImpl conexion = con.getConnection();
+            ps = conexion.prepareStatement("SELECT titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe FROM tareas;");
+            rs = ps.executeQuery();
+            return rs;
+            
+        } catch (Exception e) {
+            return null;
+        }}
+        
+        
+        public ResultSet llenarTablaPendientes(){
+         Conexion con = new Conexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ConnectionImpl conexion = con.getConnection();
+            ps = conexion.prepareStatement("SELECT titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe FROM tareas where estado=?;");
+            ps.setString(1, "Pendiente");
+            rs = ps.executeQuery();
+            return rs;
+            
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
     
 }
