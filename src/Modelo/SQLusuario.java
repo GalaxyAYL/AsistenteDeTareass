@@ -47,7 +47,7 @@ public class SQLusuario {
             //Metodo de conexion a la BS
             ConnectionImpl conexion = con.getConnection();
             //Prepared estatement para la conexion con DB
-            ps = conexion.prepareStatement("select count(id) from usuarios where nombreUsuario=?");
+            ps = conexion.prepareStatement("select count(idusuarios) from usuarios where nombreUsuario=?");
 
             ps.setString(1, nombreUsuario);
 
@@ -55,14 +55,15 @@ public class SQLusuario {
             if (rs.next()) {
                 return rs.getInt(1);
             }
+            else{
+                return 1;
+            }
         } catch (Exception e) {
 
             System.err.println(e.getMessage());
             return 1;
 
         }
-        return 1;
-
     }
 
     public boolean comprobarEmail(String correo) {
@@ -77,16 +78,18 @@ public class SQLusuario {
         return mather.find();
     }
 
-    public boolean iniciarSesion(Usuario usuario) {
+    public Usuario iniciarSesion(Usuario usuario) {
+        Usuario usuarioAutenticado = new Usuario();
         Conexion con = new Conexion();
         PreparedStatement ps;
         ResultSet rs;
+        PreparedStatement ps1;
         try {
 
             //Metodo de conexion a la BS
             ConnectionImpl conexion = con.getConnection();
             //Prepared estatement para la conexion con DB
-            ps = conexion.prepareStatement("SELECT id, nombreUsuario, passwd, nombre,ultima_sesion, idTipo_usuarios from usuarios where nombreUsuario=?");
+            ps = conexion.prepareStatement("SELECT idusuarios, nombreUsuario, passwd from usuarios where nombreUsuario=?");
 
             ps.setString(1, usuario.getNombreUsuario());
 
@@ -94,22 +97,31 @@ public class SQLusuario {
             JOptionPane.showMessageDialog(null, "Se encontro usuario --1");
             if (rs.next()) {
                 if(usuario.getPasswd().equals(rs.getString("passwd"))){
-                    usuario.setId(rs.getInt("id"));
-                    usuario.setNombreUsuario(rs.getString("nombreUsuario"));
-                    usuario.setIdTipo_usuario(rs.getInt("idTipo_usuarios"));
-                    return true;
+                    usuarioAutenticado.setId(rs.getInt("idusuarios"));
+                    JOptionPane.showMessageDialog(null, "ID USUARIO AUTENTICADO");
+                    try {
+                        ps1 = conexion.prepareStatement("UPDATE usuarios SET ultima_sesion = ? WHERE idusuarios=?");
+                    ps1.setString(1, usuario.getUltimaSesion());  // Esto debería ser un valor de fecha y hora
+                    ps1.setInt(2, usuarioAutenticado.getId());  // Usar el ID del usuario autenticado
+                    ps1.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Se actualizo bien la hora");
+                    } catch (Exception e) {
+                        System.err.println("Error: "+e);
+                    }
+                    
+                    return usuarioAutenticado;
                 }
                 else
                 {
-                    return false;
+                    return null;
                 }
             }
             else{
-                return false;
+                return null;
             }
         } catch (Exception e) 
         {
-            return false;
+            return null;
         }
 
     }

@@ -32,6 +32,7 @@ public class Cont_inicioSesion implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == iniciarSesion.btn_iniciarSesion) {
             Usuario usuario = new Usuario();
+            Usuario usuarioValidado = new Usuario();
             SQLusuario sqlUusuario = new SQLusuario();
             
             Date fecha = new Date();
@@ -46,10 +47,11 @@ public class Cont_inicioSesion implements ActionListener {
                 usuario.setNombreUsuario(iniciarSesion.ent_usuario.getText());
                 usuario.setPasswd(passwdIncrypted);
                 usuario.setUltimaSesion(fechaHora.format(fecha));
-                if (sqlUusuario.iniciarSesion(usuario)) {
+                usuarioValidado=sqlUusuario.iniciarSesion(usuario);
+                if (usuarioValidado!=null) {
                     
                     if (panelPrincipal == null) {
-                        panelPrincipal = new Vista_principal();
+                        panelPrincipal = new Vista_principal(usuarioValidado);
                         panelPrincipal.setVisible(true);
                         iniciarSesion.dispose();
                     }
