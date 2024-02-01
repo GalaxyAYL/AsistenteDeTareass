@@ -7,17 +7,12 @@ package Controlador;
 import Modelo.CifrarPasswd;
 import Modelo.SQLusuario;
 import Modelo.Usuario;
-import Vista.Vista_principal;
 import Vista.Vista_registrar;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author josea
- */
 public class Cont_registrar implements ActionListener{
     
     private Vista_registrar registrar;

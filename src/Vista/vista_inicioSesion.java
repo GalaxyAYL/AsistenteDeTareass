@@ -9,11 +9,12 @@ public class Vista_inicioSesion extends javax.swing.JFrame {
 
  
     public Vista_inicioSesion() {
-        initComponents();
-        this.setTitle("Inicio de sesion");
-        this.setLocationRelativeTo(null);
-        this.jlabel_conclusion.setVisible(false);
-        Controlador.Cont_inicioSesion controlador = new Cont_inicioSesion(this);
+        initComponents();//INICIAR EL DISENO
+        this.setLocationRelativeTo(null);//CENTRAR PESTANA
+        this.setTitle("Inicio de sesion");//TITULO DE VENTANA
+        this.jlabel_conclusion.setVisible(false);//TEXTO DE INCIIO DE SESON DE ERROR
+        
+        new Cont_inicioSesion(this); // ESTANCIA DEL CONTROLADOR, QUE CONTROLA ESTA PESTANA
     }
 
 
@@ -195,79 +196,21 @@ public class Vista_inicioSesion extends javax.swing.JFrame {
 
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
+        Controlador.Cont_inicioSesion.iniciarSesion=null;
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarSesionActionPerformed
-        //        Usuario usuario = new Usuario();
-        //        SQLusuario sqlUusuario = new SQLusuario();
-        //
-        //        Date fecha = new Date();
-        //        DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //
-        //
-        //
-        //        String passwd = new String(ent_passwd.getPassword());
-        //        if(ent_usuario.getText().equals("")||ent_passwd.getPassword().equals("")){
-            //        JOptionPane.showMessageDialog(null, "Entradas vaicas");
-            //        JOptionPane.showMessageDialog(null, "Algo paso :( --2");
-            //        }else{
-            //            String passwdIncrypted = CifrarPasswd.sha256(passwd);
-            //            usuario.setNombreUsuario(ent_usuario.getText());
-            //            usuario.setPasswd(passwdIncrypted);
-            //            usuario.setUltimaSesion(fechaHora.format(fecha));
-            //            if(sqlUusuario.iniciarSesion(usuario)){
-                //
-                //                if(panelPrincipal==null)
-                //                {
-                    //                    panelPrincipal=new Vista_principal();
-                    //                    panelPrincipal.setVisible(true);
-                    //                }
-                //
-                //                JOptionPane.showMessageDialog(null, "Login correcto");
-                //            }
-            //            else{
-                //            JOptionPane.showMessageDialog(null, "Algo paso :( ");}
-            //        }
+        
     }//GEN-LAST:event_btn_iniciarSesionActionPerformed
 
     private void ent_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ent_usuarioActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_ent_usuarioActionPerformed
 
 
+    //METODO MAIN
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Vista_inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Vista_inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Vista_inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Vista_inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Vista_inicioSesion().setVisible(true);

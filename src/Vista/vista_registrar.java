@@ -1,16 +1,15 @@
 package Vista;
 
-import Controlador.Cont_registrar;
-
-
-
 public class Vista_registrar extends javax.swing.JFrame {
 
+    
+    
     public Vista_registrar() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setTitle("Registrarse");
-        Controlador.Cont_registrar controlador = new Cont_registrar(this);
+        initComponents(); //INICIAR EL DISENO
+        this.setLocationRelativeTo(null);//CENTRAR PESTANA
+        this.setTitle("Registrarse");//TITULO DE VENTANA
+        
+        new Controlador.Cont_registrar(this);// ESTANCIA DEL CONTROLADOR, QUE CONTROLA ESTA PESTANA
     }
 
     @SuppressWarnings("unchecked")
@@ -224,63 +223,11 @@ public class Vista_registrar extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
-//        Usuario usuario = new Usuario();
-//        SQLusuario sqlUsuario = new SQLusuario();
-//
-//        String passwd = new String(ent_passwdConf.getPassword());
-//        String passwdConf = new String(ent_passwdConf.getPassword());
-//        //validaciones
-//
-//        //VALIDACIOON DE CAMPOS
-//        if (ent_usuario.getText().equals("") || passwd.equals("") || passwdConf.equals("")|| ent_Celular.getText().equals("") || ent_Celular.getText().equals(""))
-//        {
-//            JOptionPane.showMessageDialog(null, "Algunos campos estan vacios, revisalos");
-//        } else
-//        {
-//            //VALIDACIOON CONTRASE;AS IGUALES
-//            if (passwd.equals(passwdConf))
-//            {
-//                if (sqlUsuario.verificarUsuario(ent_usuario.getText()) == 0)
-//                {
-//
-//                    if (sqlUsuario.comprobarEmail(ent_Celular.getText()))
-//                    {
-//
-//                        String nuevaPasswd = CifrarPasswd.sha256(passwd);
-//                        
-//                        
-//                        usuario.setNombreUsuario(ent_usuario.getText());
-//                        usuario.setPasswd(nuevaPasswd);
-//                        usuario.setNick(ent_nick.getText());
-//                        usuario.setCorreo(ent_Celular.getText());
-//                        usuario.setIdTipo_usuario(1);
-//
-//                        if (sqlUsuario.registrar(usuario)) {
-//                            JOptionPane.showMessageDialog(null, "Registrado");
-//                            new Vista_principal().setVisible(true);
-//                            this.dispose();
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "Error en el registro");
-//                        }
-//                    }
-//                    else
-//                    {
-//                        System.out.println("El correo no es correcto");
-//                    }
-//                } else
-//                {
-//                    JOptionPane.showMessageDialog(null, "Ya existe el usuario");
-//                }
-//
-//            } else
-//            {
-//                JOptionPane.showMessageDialog(null, "Contraseñas diferentes");
-//            }
-//        }
+
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void ent_passwd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ent_passwd1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_ent_passwd1ActionPerformed
 
    

@@ -12,9 +12,38 @@ public class Tarea {
     private Date fecha_limite;
     private String descripcion;
     private String importancia;
+    private String importancia1;
+    private String importancia2;
     private String estado;
+    private String estado2;
     private int id_usuarioJefe;
 
+    public String getImportancia1() {
+        return importancia1;
+    }
+
+    public void setImportancia1(String importancia1) {
+        this.importancia1 = importancia1;
+    }
+
+    public String getImportancia2() {
+        return importancia2;
+    }
+
+    public void setImportancia2(String importancia2) {
+        this.importancia2 = importancia2;
+    }
+
+    public String getEstado2() {
+        return estado2;
+    }
+
+    public void setEstado2(String estado2) {
+        this.estado2 = estado2;
+    }
+
+    
+    
     public int getId_tareas() {
         return id_tareas;
     }

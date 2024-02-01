@@ -17,7 +17,6 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = (ConnectionImpl) DriverManager.getConnection(rute, usuario, passwd);
-            JOptionPane.showMessageDialog(null, "Conexion exitosa MYSQL");
         } catch (Exception e) {
             System.err.println("Error"+ e);
         }

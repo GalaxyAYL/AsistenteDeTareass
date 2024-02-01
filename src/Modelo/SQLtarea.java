@@ -3,24 +3,29 @@ package Modelo;
 import com.mysql.cj.jdbc.ConnectionImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 
 public class SQLtarea {
 
+    private static ConnectionImpl conexion; //ESTANCIA DE CONEXION
+    private static Conexion con; //ESTANCIA DE CONEXION CON NUESTRAS CREDENCIALES
+    private static PreparedStatement ps; //OBJETO DE SENTENCIA INICIAL
+    private static ResultSet rs; //OBJETO DE SENTENCIA RESULTANTE
+
+    //METODO COMPROBAR CONEXION DE USUARIOS
     public String cargarDatos(Usuario usuario) {
-        Conexion con = new Conexion();
-        PreparedStatement ps;
-        ResultSet rs;
+        con = new Conexion();//CONEXION CON DB CON NUETSRAS CREDENCIALES
         String resultado;
 
         try {
-            ConnectionImpl conexion = con.getConnection();
+            conexion = con.getConnection();//CONEXION CON DB CON NUETSRAS CREDENCIALES
+            //-----------DFINICION DE SENTENCIA DE BUSQUEDA-----------
             ps = conexion.prepareStatement("SELECT nombre FROM usuarios where idusuarios=?");
-            ps.setInt(1, usuario.getId());
+            ps.setInt(1, usuario.getId());          //INSERTAR ID TIPO
 
+            //----------DEFINICION DE RESULTADO DE BUSQUEDA------------
             rs = ps.executeQuery();
-            if (rs.next()) {
-                resultado = rs.getString("nombre");
+            if (rs.next()) {            //EN CASO DE QUE EXISTAN RESULTADOS
+                resultado = rs.getString("nombre"); //OBTENER COLUMNA NOMBRE
             } else {
                 resultado = "Algo paso dentro";
             }
@@ -33,97 +38,121 @@ public class SQLtarea {
         return resultado;
     }
 
+    //METODO CREAR METODO
     public boolean crearTarea(Usuario usuario, Tarea tarea) {
-        Conexion con = new Conexion();
-        PreparedStatement ps;
+        con = new Conexion();//CONEXION CON DB CON NUETSRAS CREDENCIALES
 
         try {
-            ConnectionImpl conexion = con.getConnection();
-            ps = conexion.prepareStatement("INSERT INTO tareas (titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe) VALUES (?,?,?,?,?,?,?);");
-            ps.setString(1, tarea.getTitulo());
-            ps.setDate(2, tarea.getFecha_creacion());
-            ps.setDate(3, tarea.getFecha_limite());
-            ps.setString(4, tarea.getDescripcion());
-            ps.setString(5, tarea.getImportancia());
-            ps.setString(6, tarea.getEstado());
-            ps.setInt(7, usuario.getId());
+            conexion = con.getConnection();//CONEXION CON DB CON NUETSRAS CREDENCIALES
+
+            //-----------DFINICION DE SENTENCIA DE BUSQUEDA-----------
+            ps = conexion.prepareStatement("INSERT INTO tareas (titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe) VALUES (?,?,?,?,?,?,?);");//SENTENCIA DE BUSQUEDA INICIO
+            ps.setString(1, tarea.getTitulo());           //INSERTAR EN TITULO
+            ps.setDate(2, tarea.getFecha_creacion());     //INSERTAR EN FECHA CREACION
+            ps.setDate(3, tarea.getFecha_limite());       //INSERTAR EN FECHA LIMITE
+            ps.setString(4, tarea.getDescripcion());      //INSERTAR EN DESCRIPCION
+            ps.setString(5, tarea.getImportancia());      //INSERTAR EN IMPORTANCIA
+            ps.setString(6, tarea.getEstado());           //INSERTAR EN ESTADO
+            ps.setInt(7, usuario.getId());                //INSERTAR EN ID_USUARIO
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Tarea agregadaaaaa");
+
+            //----------DEFINICION DE RESULTADO DE BUSQUEDA------------
+            conexion.close();//CIERRE DE CONEXION MYSQL
             return true;
+
         } catch (Exception e) {
-            System.err.println("Error: " + e);
-            System.err.println("Mal subida a db, algo fallo");
+            return false;
         }
-        return true;
+
     }
 
-    public ResultSet llenarTabla(Usuario usuario) {
-        Conexion con = new Conexion();
-        PreparedStatement ps;
-        ResultSet rs;
+    //METODO DE BUSQUEDA DEPENDIENDO FILTROS
+    public ResultSet buscarSupremo(Tarea tarea, Usuario usuario) { //RECIBE UN OBJETO CLASE TAREA, Y USUARIO QUE ESTA ACTIVO PARA OBTENER ID
+        con = new Conexion();//CONEXION CON DB CON NUETSRAS CREDENCIALES
 
+        //-----------DFINICION DE SENTENCIA DE BUSQUEDA-----------
         try {
-            ConnectionImpl conexion = con.getConnection();
-            ps = conexion.prepareStatement("SELECT titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe FROM tareas WHERE id_usuarioJefe=?;");
+            conexion = con.getConnection();
+            StringBuilder query = new StringBuilder("SELECT titulo, fecha_limite, descripcion, importancia, estado, id_usuarioJefe FROM tareas WHERE id_usuarioJefe = ?");//SENTENCIA DE BUSQUEDA INICIO
+
+            //FILTRO POR FECHA
+            if (tarea.getFecha_creacion() != null && tarea.getFecha_limite() != null) {
+                query.append(" AND (fecha_limite BETWEEN ? AND ?)");                          //AGREGADA DE SENTENCIA CONDICIONAL
+            }
+
+            //FILTRO POR ESTADO PENDIENTE-REALIZADO
+            if (tarea.getEstado() != null || tarea.getEstado2() != null) {
+                query.append(" AND (estado = ?" + ((tarea.getEstado2() != null && tarea.getEstado() != null) ? " or estado = ?)" : ")")); //AGREGADA DE SENTENCIA CONDICIONAL
+            }
+
+            //FILTRO POR IMPORTANCIA DE LA TAREA
+            if (tarea.getImportancia() != null && tarea.getImportancia1() != null && tarea.getImportancia2() != null) {                  // 1 1 1
+                query.append(" AND (importancia = ? or importancia = ? or importancia = ?)"); //AGREGADA DE SENTENCIA CONDICIONAL
+            } else if (tarea.getImportancia() != null && tarea.getImportancia1() != null && tarea.getImportancia2() == null
+                    || // 1 1 0 
+                    tarea.getImportancia() != null && tarea.getImportancia1() == null && tarea.getImportancia2() != null
+                    || // 1 0 1 
+                    tarea.getImportancia() == null && tarea.getImportancia1() != null && tarea.getImportancia2() != null) {               // 0 1 1
+                query.append(" AND (importancia = ? OR importancia = ?)");                   //AGREGADA DE SENTENCIA CONDICIONAL
+            } else if (tarea.getImportancia() != null && tarea.getImportancia1() == null && tarea.getImportancia2() == null
+                    || // 1 0 0
+                    tarea.getImportancia() == null && tarea.getImportancia1() != null && tarea.getImportancia2() == null
+                    || // 0 1 0
+                    tarea.getImportancia() == null && tarea.getImportancia1() == null && tarea.getImportancia2() != null) {              
+                       // 0 0 1
+                query.append(" AND (importancia = ?)");                                     //AGREGADA DE SENTENCIA CONDICIONAL
+            }
+            query.append(";");
+            System.out.println(query);
+
+            //----------DEFINICION DE RESULTADO DE BUSQUEDA------------
+            ps = conexion.prepareStatement(query.toString());
+            System.out.println("Usuario " + usuario.getId());
             ps.setInt(1, usuario.getId());
-            rs = ps.executeQuery();
-            return rs;
+            int parameterIndex = 2; // INICIAR INDICE DE PARAMETRO DESPUES DEL PRIMER ?
+            //INSERTAR EN ID_USUARIO
 
-        } catch (Exception e) {
-            return null;
-        }
-    }
+            if (tarea.getFecha_creacion() != null && tarea.getFecha_limite() != null) {
+                ps.setDate(parameterIndex++, tarea.getFecha_creacion());            //INSERTAR EN FECHA CREACION
+                ps.setDate(parameterIndex++, tarea.getFecha_limite());              //INSERTAR EN FECHA LIMITE
+            }
 
-    public ResultSet llenarTablaPendientes(Usuario usuario) {
-        Conexion con = new Conexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        try {
-            ConnectionImpl conexion = con.getConnection();
-            ps = conexion.prepareStatement("SELECT titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe FROM tareas WHERE estado=? AND id_usuarioJefe=?;");
-            ps.setString(1, "Pendiente");
-            ps.setInt(2, usuario.getId());
-            rs = ps.executeQuery();
-            return rs;
+            if (tarea.getEstado() != null || tarea.getEstado2() != null) {
+                if (tarea.getEstado2() == null) {
+                    ps.setString(parameterIndex++, tarea.getEstado());             //INSERTAR EN ESTADO
+                } else if (tarea.getEstado() == null) {
+                    ps.setString(parameterIndex++, tarea.getEstado2());            //INSERTAR EN ESTADO 2
+                } else {
+                    ps.setString(parameterIndex++, tarea.getEstado());             //INSERTAR EN ESTADO
+                    ps.setString(parameterIndex++, tarea.getEstado2());            //INSERTAR EN ESTADO 2
+                }
+            }
 
-        } catch (Exception e) {
-            return null;
-        }
-    }
+            if (tarea.getImportancia() != null || tarea.getImportancia1() != null || tarea.getImportancia2() != null) {
 
-    public ResultSet llenarTablaFechas(Tarea tarea, Usuario usuario) {
-        Conexion con = new Conexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        try {
-            ConnectionImpl conexion = con.getConnection();
-            ps = conexion.prepareStatement("SELECT titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe FROM tareas WHERE id_usuarioJefe=? AND fecha_limite BETWEEN ? AND ?;");
-            ps.setInt(1, usuario.getId());
-            ps.setDate(2, tarea.getFecha_creacion());
-            ps.setDate(3, tarea.getFecha_limite());
+                if (tarea.getImportancia() != null && tarea.getImportancia1() == null && tarea.getImportancia2() == null) { // 1 0 0
+                    ps.setString(parameterIndex++, tarea.getImportancia());        //INSERTAR EN IMPORTANCIA
+                } else if (tarea.getImportancia() == null && tarea.getImportancia1() != null && tarea.getImportancia2() == null) { // 0 1 0
+                    ps.setString(parameterIndex++, tarea.getImportancia1());       //INSERTAR EN IMPORTANCIA
+                } else if (tarea.getImportancia() == null && tarea.getImportancia1() == null && tarea.getImportancia2() != null) { // 0 0 1
+                    ps.setString(parameterIndex++, tarea.getImportancia2());       //INSERTAR EN IMPORTANCIA
+                } else if (tarea.getImportancia() != null && tarea.getImportancia1() != null && tarea.getImportancia2() == null) { //1 1 0
+                    ps.setString(parameterIndex++, tarea.getImportancia());        //INSERTAR EN IMPORTANCIA
+                    ps.setString(parameterIndex++, tarea.getImportancia1());       //INSERTAR EN IMPORTANCIA
+                } else if (tarea.getImportancia() == null && tarea.getImportancia1() != null && tarea.getImportancia2() != null) {//0 1 1
+                    ps.setString(parameterIndex++, tarea.getImportancia1());       //INSERTAR EN IMPORTANCIA
+                    ps.setString(parameterIndex++, tarea.getImportancia2());       //INSERTAR EN IMPORTANCIA
+                } else if (tarea.getImportancia() != null && tarea.getImportancia1() == null && tarea.getImportancia2() != null) {//1 0 1
+                    ps.setString(parameterIndex++, tarea.getImportancia2());      //INSERTAR EN IMPORTANCIA
+                    ps.setString(parameterIndex++, tarea.getImportancia());       //INSERTAR EN IMPORTANCIA
+                } else {
+                    ps.setString(parameterIndex++, tarea.getImportancia());       //INSERTAR EN IMPORTANCIA
+                    ps.setString(parameterIndex++, tarea.getImportancia1());      //INSERTAR EN IMPORTANCIA
+                    ps.setString(parameterIndex++, tarea.getImportancia2());      //INSERTAR EN IMPORTANCIA
+                }
 
-            rs = ps.executeQuery();
-            return rs;
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public ResultSet buscarSupremo(Tarea tarea, Usuario usuario) {
-        Conexion con = new Conexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        try {
-            ConnectionImpl conexion = con.getConnection();
-            ps = conexion.prepareStatement("SELECT titulo,fecha_creacion,fecha_limite,descripcion,importancia,estado,id_usuarioJefe FROM tareas WHERE id_usuarioJefe=? AND fecha_limite BETWEEN ? AND ?;");
-            ps.setInt(1, usuario.getId());
-            ps.setDate(2, tarea.getFecha_creacion());
-            ps.setDate(3, tarea.getFecha_limite());
-
-            rs = ps.executeQuery();
-            return rs;
-
+            }
+            return ps.executeQuery();//OBTENCIO DE RESULTADOS DE WORKEANCJ
         } catch (Exception e) {
             return null;
         }

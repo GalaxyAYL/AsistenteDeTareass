@@ -4,6 +4,7 @@ import Modelo.CifrarPasswd;
 import Modelo.SQLusuario;
 import Modelo.Usuario;
 import Vista.Vista_inicioSesion;
+import Vista.Vista_nuevaTarea;
 import Vista.Vista_principal;
 import Vista.Vista_registrar;
 import java.awt.event.ActionEvent;
@@ -17,8 +18,8 @@ public class Cont_inicioSesion implements ActionListener {
     
     public static Vista_registrar registrar;
     public static Vista_principal panelPrincipal;
-    
-    private Vista_inicioSesion iniciarSesion;
+    public static Vista_inicioSesion iniciarSesion;
+    public static Vista_nuevaTarea nuevaTarea;
     
     public Cont_inicioSesion(Vista_inicioSesion iniciarSesion) {
         this.iniciarSesion = iniciarSesion;
@@ -40,8 +41,7 @@ public class Cont_inicioSesion implements ActionListener {
             
             String passwd = new String(iniciarSesion.ent_passwd.getPassword());
             if (iniciarSesion.ent_usuario.getText().equals("") || iniciarSesion.ent_passwd.getPassword().equals("")) {
-                JOptionPane.showMessageDialog(null, "Entradas vaicas");
-                JOptionPane.showMessageDialog(null, "Algo paso :( --2");
+                JOptionPane.showMessageDialog(null, "Entradas vacias");
             } else {
                 String passwdIncrypted = CifrarPasswd.sha256(passwd);
                 usuario.setNombreUsuario(iniciarSesion.ent_usuario.getText());
@@ -55,11 +55,10 @@ public class Cont_inicioSesion implements ActionListener {
                         panelPrincipal.setVisible(true);
                         iniciarSesion.dispose();
                     }
-                    
-                    JOptionPane.showMessageDialog(null, "Login correcto");
+                   
                 } else {
                     iniciarSesion.jlabel_conclusion.setVisible(true);
-                    JOptionPane.showMessageDialog(null, "Algo paso :( ");
+                    JOptionPane.showMessageDialog(null, "No existe usuarios");
                 }
             }
         }
