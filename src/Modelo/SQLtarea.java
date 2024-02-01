@@ -3,6 +3,7 @@ package Modelo;
 import com.mysql.cj.jdbc.ConnectionImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class SQLtarea {
 
@@ -156,6 +157,34 @@ public class SQLtarea {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    
+    public void actualizarTarea(Usuario usuario, Tarea tarea) {
+        con = new Conexion();//CONEXION CON DB CON NUETSRAS CREDENCIALES
+
+        try {
+            conexion = con.getConnection();//CONEXION CON DB CON NUETSRAS CREDENCIALES
+
+            //-----------DFINICION DE SENTENCIA DE BUSQUEDA-----------
+            //UPDATE tareas SET descripcion = ?, estado = ? WHERE id_tareas = ?;
+            ps = conexion.prepareStatement("UPDATE tareas SET ultima_sesion = ?,  WHERE idusuarios = ?");//SENTENCIA DE BUSQUEDA INICIO
+            ps.setString(1, tarea.getTitulo());           //INSERTAR EN TITULO
+            ps.setDate(2, tarea.getFecha_creacion());     //INSERTAR EN FECHA CREACION
+            ps.setDate(3, tarea.getFecha_limite());       //INSERTAR EN FECHA LIMITE
+            ps.setString(4, tarea.getDescripcion());      //INSERTAR EN DESCRIPCION
+            ps.setString(5, tarea.getImportancia());      //INSERTAR EN IMPORTANCIA
+            ps.setString(6, tarea.getEstado());           //INSERTAR EN ESTADO
+            ps.setInt(7, usuario.getId());                //INSERTAR EN ID_USUARIO
+            ps.executeUpdate();
+
+            //----------DEFINICION DE RESULTADO DE BUSQUEDA------------
+            conexion.close();//CIERRE DE CONEXION MYSQL
+            JOptionPane.showMessageDialog(null, "Tarea Actualizada");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No actualizado");
+        }
+
     }
 
 }

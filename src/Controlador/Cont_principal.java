@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.ComboBoxUI;
 import javax.swing.table.DefaultTableModel;
 
 public class Cont_principal implements ActionListener {
@@ -49,7 +50,7 @@ public class Cont_principal implements ActionListener {
         principal.btn_buscarFecha.addActionListener(this);
         principal.btn_salir.addActionListener(this);
         principal.btn_limpiarFiltros.addActionListener(this);
-
+        comboBox.addActionListener(this);
         
         
 //        modeloTabla
@@ -60,7 +61,6 @@ public class Cont_principal implements ActionListener {
         
         comboBox.addItem("Pendiente");
         comboBox.addItem("Realizado");
-        
         modeloTabla.addColumn("Estado");
         
         principal.tabla_contenido.setModel(modeloTabla);
@@ -70,6 +70,8 @@ public class Cont_principal implements ActionListener {
     }
 
     @Override
+    
+    
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == principal.btn_crearTarea) {
             if (nuevaTarea == null) {
@@ -191,7 +193,7 @@ public class Cont_principal implements ActionListener {
             tarea.setImportancia1(principal.chk_normal.isSelected() ? "media" : null);
             tarea.setImportancia2(principal.chk_leve.isSelected() ? "baja" : null);
             tarea.setEstado(principal.chk_pendiente.isSelected() ? "Pendiente" : null);
-            tarea.setEstado2(principal.chk_realizado.isSelected() ? "realizado" : null);
+            tarea.setEstado2(principal.chk_realizado.isSelected() ? "Realizado" : null);
 
             tarea.setFecha_creacion(principal.dateChosser_Inicio.getDate() != null ? new java.sql.Date(principal.dateChosser_Inicio.getDate().getTime()) : null);
             tarea.setFecha_limite(principal.dateChosser_fin.getDate() != null ? new java.sql.Date(principal.dateChosser_fin.getDate().getTime()) : null);
@@ -217,6 +219,10 @@ public class Cont_principal implements ActionListener {
             limpiarFiltros();
         }
 
+        if (e.getSource()== comboBox) {
+            
+        }
+        
     }
 
     public void limpiarTabla() {
