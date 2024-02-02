@@ -1,8 +1,11 @@
+
 package Vista;
+
 
 import Modelo.Usuario;
 
 public class Vista_principal extends javax.swing.JFrame {
+
 
     
     public Vista_principal(Usuario usuario) {
@@ -13,15 +16,14 @@ public class Vista_principal extends javax.swing.JFrame {
         new Controlador.Cont_principal(this, usuario);// ESTANCIA DEL CONTROLADOR, QUE CONTROLA ESTA PESTANA
     }
 
+    
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
-        panel_Contenido = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabla_contenido = new javax.swing.JTable();
-        btn_crearTarea = new javax.swing.JButton();
         panelRectTranslucidoComplete1 = new org.edisoncor.gui.panel.PanelRectTranslucidoComplete();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -31,6 +33,7 @@ public class Vista_principal extends javax.swing.JFrame {
         panelRectTranslucidoComplete2 = new org.edisoncor.gui.panel.PanelRectTranslucidoComplete();
         btn_mostrrarTodasLasTareas = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btn_filPendientes = new javax.swing.JButton();
         chk_pendiente = new javax.swing.JCheckBox();
         chk_realizado = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
@@ -42,6 +45,10 @@ public class Vista_principal extends javax.swing.JFrame {
         dateChosser_fin = new com.toedter.calendar.JDateChooser();
         btn_buscarFecha = new javax.swing.JButton();
         btn_limpiarFiltros = new javax.swing.JButton();
+        panelRectTranslucidoComplete3 = new org.edisoncor.gui.panel.PanelRectTranslucidoComplete();
+        btn_crearTarea = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabla_contenido = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         btn_salir = new javax.swing.JMenu();
 
@@ -53,63 +60,6 @@ public class Vista_principal extends javax.swing.JFrame {
         });
 
         panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.jpg"))); // NOI18N
-
-        panel_Contenido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        tabla_contenido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Titulo", "Fecha Limite", "Descripcion", "Importancia", "Estado"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabla_contenido.setColumnSelectionAllowed(true);
-        tabla_contenido.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tabla_contenido);
-        tabla_contenido.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
-        btn_crearTarea.setText("Crear Tarea");
-
-        javax.swing.GroupLayout panel_ContenidoLayout = new javax.swing.GroupLayout(panel_Contenido);
-        panel_Contenido.setLayout(panel_ContenidoLayout);
-        panel_ContenidoLayout.setHorizontalGroup(
-            panel_ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_ContenidoLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(panel_ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_ContenidoLayout.createSequentialGroup()
-                        .addComponent(btn_crearTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panel_ContenidoLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-                        .addGap(52, 52, 52))))
-        );
-        panel_ContenidoLayout.setVerticalGroup(
-            panel_ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ContenidoLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(btn_crearTarea)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
 
         panelRectTranslucidoComplete1.setColorDeBorde(new java.awt.Color(242, 212, 155));
         panelRectTranslucidoComplete1.setColorDeSegundoBorde(new java.awt.Color(242, 149, 94));
@@ -144,36 +94,37 @@ public class Vista_principal extends javax.swing.JFrame {
                 .addComponent(jlabel_nombre)
                 .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(40, 40, 40))
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel6))
                     .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(jLabel6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel7)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRectTranslucidoComplete1Layout.setVerticalGroup(
             panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
                 .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
-                            .addGap(33, 33, 33)
-                            .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jlabel_nombre)))
-                        .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
-                            .addGap(19, 19, 19)
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel7))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRectTranslucidoComplete1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7))
+                    .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
+                                .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jlabel_nombre))
+                                .addGap(26, 26, 26)))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        panelRectTranslucidoComplete2.setColorDeBorde(new java.awt.Color(242, 212, 155));
+        panelRectTranslucidoComplete2.setColorDeBorde(new java.awt.Color(89, 35, 30));
         panelRectTranslucidoComplete2.setColorDeSegundoBorde(new java.awt.Color(242, 149, 94));
-        panelRectTranslucidoComplete2.setColorPrimario(new java.awt.Color(242, 169, 153));
+        panelRectTranslucidoComplete2.setColorPrimario(new java.awt.Color(242, 149, 94));
         panelRectTranslucidoComplete2.setColorSecundario(new java.awt.Color(89, 35, 30));
 
         btn_mostrrarTodasLasTareas.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
@@ -186,6 +137,9 @@ public class Vista_principal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 3, 14)); // NOI18N
         jLabel3.setText("FILTROS");
+
+        btn_filPendientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn_filPendientes.setText("Pendientes");
 
         chk_pendiente.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         chk_pendiente.setText("Pendiente");
@@ -216,7 +170,7 @@ public class Vista_principal extends javax.swing.JFrame {
         chk_alto.setText("alta");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel5.setText("Fecha");
+        jLabel5.setText("Fecha: ");
 
         btn_buscarFecha.setText("buscarFecha");
 
@@ -233,8 +187,11 @@ public class Vista_principal extends javax.swing.JFrame {
                         .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(chk_realizado, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(chk_realizado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btn_filPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(53, 53, 53)
                                 .addComponent(chk_pendiente)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -248,26 +205,28 @@ public class Vista_principal extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(chk_normal, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                                 .addComponent(chk_alto, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btn_mostrrarTodasLasTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77))
                             .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
                                 .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRectTranslucidoComplete2Layout.createSequentialGroup()
-                                .addComponent(btn_mostrrarTodasLasTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77))
                             .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(27, 27, 27)
                                 .addComponent(dateChosser_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(dateChosser_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_buscarFecha)))))
+                                .addComponent(dateChosser_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)))))
                 .addContainerGap())
             .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addComponent(btn_limpiarFiltros)
+                .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_buscarFecha)
+                    .addComponent(btn_limpiarFiltros))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRectTranslucidoComplete2Layout.setVerticalGroup(
@@ -277,7 +236,9 @@ public class Vista_principal extends javax.swing.JFrame {
                 .addComponent(btn_mostrrarTodasLasTareas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
+                .addComponent(btn_filPendientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chk_realizado)
                     .addComponent(chk_pendiente))
@@ -290,14 +251,74 @@ public class Vista_principal extends javax.swing.JFrame {
                     .addComponent(chk_alto))
                 .addGap(30, 30, 30)
                 .addComponent(jLabel5)
-                .addGap(7, 7, 7)
+                .addGap(25, 25, 25)
                 .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dateChosser_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateChosser_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscarFecha))
-                .addGap(68, 68, 68)
+                    .addComponent(dateChosser_fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_buscarFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_limpiarFiltros)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
+        );
+
+        panelRectTranslucidoComplete3.setColorDeBorde(new java.awt.Color(242, 212, 155));
+        panelRectTranslucidoComplete3.setColorDeSegundoBorde(new java.awt.Color(242, 149, 94));
+        panelRectTranslucidoComplete3.setColorPrimario(new java.awt.Color(242, 169, 153));
+        panelRectTranslucidoComplete3.setColorSecundario(new java.awt.Color(89, 35, 30));
+
+        btn_crearTarea.setBackground(new java.awt.Color(89, 59, 14));
+        btn_crearTarea.setForeground(new java.awt.Color(255, 255, 255));
+        btn_crearTarea.setText("Crear Tarea");
+
+        tabla_contenido.setBackground(new java.awt.Color(242, 169, 153));
+        tabla_contenido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Titulo", "Fecha Creacion", "Fecha Limite", "Descripcion", "Importancia", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabla_contenido);
+
+        javax.swing.GroupLayout panelRectTranslucidoComplete3Layout = new javax.swing.GroupLayout(panelRectTranslucidoComplete3);
+        panelRectTranslucidoComplete3.setLayout(panelRectTranslucidoComplete3Layout);
+        panelRectTranslucidoComplete3Layout.setHorizontalGroup(
+            panelRectTranslucidoComplete3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRectTranslucidoComplete3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btn_crearTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        panelRectTranslucidoComplete3Layout.setVerticalGroup(
+            panelRectTranslucidoComplete3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRectTranslucidoComplete3Layout.createSequentialGroup()
+                .addGroup(panelRectTranslucidoComplete3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRectTranslucidoComplete3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRectTranslucidoComplete3Layout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(btn_crearTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelImage1Layout = new javax.swing.GroupLayout(panelImage1);
@@ -305,17 +326,14 @@ public class Vista_principal extends javax.swing.JFrame {
         panelImage1Layout.setHorizontalGroup(
             panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelImage1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRectTranslucidoComplete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelImage1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(panelRectTranslucidoComplete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelImage1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
                         .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(60, 60, 60)
-                        .addComponent(panel_Contenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)))
-                .addContainerGap())
+                        .addGap(27, 27, 27)
+                        .addComponent(panelRectTranslucidoComplete3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(90, 90, 90))
         );
         panelImage1Layout.setVerticalGroup(
             panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +341,9 @@ public class Vista_principal extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(panelRectTranslucidoComplete1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addGroup(panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel_Contenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelRectTranslucidoComplete3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
 
@@ -338,7 +356,9 @@ public class Vista_principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelImage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelImage1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,11 +371,12 @@ public class Vista_principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Controlador.Cont_inicioSesion.panelPrincipal = null;
+        Controlador.Cont_inicioSesion.panelPrincipal =null;
+
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_mostrrarTodasLasTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrrarTodasLasTareasActionPerformed
-
+        
     }//GEN-LAST:event_btn_mostrrarTodasLasTareasActionPerformed
 
     private void chk_leveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_leveActionPerformed
@@ -370,6 +391,7 @@ public class Vista_principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btn_buscarFecha;
     public javax.swing.JButton btn_crearTarea;
+    public javax.swing.JButton btn_filPendientes;
     public javax.swing.JButton btn_limpiarFiltros;
     public javax.swing.JButton btn_mostrrarTodasLasTareas;
     public javax.swing.JMenu btn_salir;
@@ -393,7 +415,7 @@ public class Vista_principal extends javax.swing.JFrame {
     private org.edisoncor.gui.panel.PanelImage panelImage1;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete1;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete2;
-    private javax.swing.JPanel panel_Contenido;
+    private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete3;
     public javax.swing.JTable tabla_contenido;
     // End of variables declaration//GEN-END:variables
 }
